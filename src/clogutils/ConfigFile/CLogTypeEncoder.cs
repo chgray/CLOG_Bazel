@@ -207,7 +207,7 @@ namespace clogutils.ConfigFile
         {
             Assembly clogUtilsAssembly = typeof(CLogTypeEncoder).Assembly;
             string assemblyName = clogUtilsAssembly.GetName().Name;
-            using (Stream embeddedStream = clogUtilsAssembly.GetManifestResourceStream($"{assemblyName}.defaults.clog.cs"))
+            using (Stream embeddedStream = clogUtilsAssembly.GetManifestResourceStream($"defaults.clog.cs"))
             using (StreamReader reader = new StreamReader(embeddedStream))
             {
                 string sourceCode = reader.ReadToEnd();

@@ -2,7 +2,6 @@ load(
     "@rules_dotnet//dotnet:defs.bzl",
     "csharp_binary","import_dll",
     "csharp_library",
-    "csharp_nunit_test",
 )
 
 # import_dll(name="hi", dll="System.Reflection.Emit.dll", version="1.2.3")

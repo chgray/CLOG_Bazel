@@ -37,5 +37,6 @@ publish_binary(
     name = "clogP",
     binary = ":clog",
     self_contained = True,
+    visibility = ["//visibility:public"],
     target_framework = "net8.0",
 )
