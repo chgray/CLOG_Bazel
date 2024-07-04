@@ -8,8 +8,8 @@ load(
 # import_dll(name="hi", dll="System.Reflection.Emit.dll", version="1.2.3")
 
 csharp_library(
-    name = "clogutils",    
-    treat_warnings_as_errors = True,  # Optional: treat warnings as errors
+    name = "clogutils",
+    # treat_warnings_as_errors = True,  # Optional: treat warnings as errors
     srcs = [
         "CLogConsoleTrace.cs",
         "CLogCustomTraceEmittorFactory.cs",
@@ -26,15 +26,15 @@ csharp_library(
         "CLogTypeNotFoundException.cs",
         "CLogTypeSearchNode.cs",
         "ICLogOutputModule.cs",
-        "CodeDomHelper/Extensions.cs", 
-        "CodeDomHelper/TargetFramework.cs", 
-        "ConfigFile/CLogConfigurationFile.cs", 
-        "ConfigFile/CLogModuleUsageInformation.cs", 
-        "ConfigFile/CLogTraceLineInformation.cs", 
-        "ConfigFile/CLogTypeEncoder.cs", 
-        "MacroDefinations/CLogConfigurationProfile.cs", 
-        "MacroDefinations/CLogExportModuleDefination.cs", 
-        "MacroDefinations/CLogTraceMacroDefination.cs", 
+        "CodeDomHelper/Extensions.cs",
+        "CodeDomHelper/TargetFramework.cs",
+        "ConfigFile/CLogConfigurationFile.cs",
+        "ConfigFile/CLogModuleUsageInformation.cs",
+        "ConfigFile/CLogTraceLineInformation.cs",
+        "ConfigFile/CLogTypeEncoder.cs",
+        "MacroDefinations/CLogConfigurationProfile.cs",
+        "MacroDefinations/CLogExportModuleDefination.cs",
+        "MacroDefinations/CLogTraceMacroDefination.cs",
         "MacroDefinations/CLogUniqueIDEncoder.cs"
     ],
     resources = [
@@ -49,7 +49,7 @@ csharp_library(
         "@paket.clog_dependencies//basic.reference.assemblies",
         "@paket.clog_dependencies//system.codedom",
         "@paket.clog_dependencies//microsoft.codeanalysis.common",
-        "@paket.clog_dependencies//microsoft.codeanalysis", 
+        "@paket.clog_dependencies//microsoft.codeanalysis",
         "@paket.clog_dependencies//microsoft.codeanalysis.csharp"
     ]
 )

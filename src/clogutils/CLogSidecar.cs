@@ -13,23 +13,23 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using clogutils.ConfigFile;
+using Newtonsoft.Json;
 using static clogutils.CLogConsoleTrace;
 
 namespace clogutils
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class ClogSidecar_V1
     {
-        [JsonPropertyName("Version")] public int Version { get; set; }
+        [JsonProperty] public int Version { get; set; }
 
-        [JsonPropertyName("EventBundlesV2")]
+        [JsonProperty]
         public SortedDictionary<string, CLogDecodedTraceLine> EventBundlesV2 { get; set; } = new SortedDictionary<string, CLogDecodedTraceLine>();
 
-        [JsonPropertyName("ConfigFile")] public CLogConfigurationFile ConfigFile { get; set; }
+        [JsonProperty] public CLogConfigurationFile ConfigFile { get; set; }
 
-        [JsonPropertyName("ModuleUniqueness")]
+        [JsonProperty]
         public CLogModuleUsageInformation_V1 ModuleUniqueness
         {
             get;
@@ -44,30 +44,34 @@ namespace clogutils
 
         public string ToJson()
         {
+            JsonSerializerSettings s = new JsonSerializerSettings();
+            s.Formatting = Formatting.Indented;
             this.Version = 1;
-            JsonSerializerOptions s = new JsonSerializerOptions();
-            s.WriteIndented = true;
-            string me = JsonSerializer.Serialize(this, s);
+            string me = JsonConvert.SerializeObject(this, Formatting.Indented);
             return me;
         }
 
         public static ClogSidecar_V1 FromJson(string json)
         {
-            ClogSidecar_V1 ret = JsonSerializer.Deserialize<ClogSidecar_V1>(json);
+            JsonSerializerSettings s = new JsonSerializerSettings();
+            s.Context = new StreamingContext(StreamingContextStates.Other, json);
+
+            ClogSidecar_V1 ret = JsonConvert.DeserializeObject<ClogSidecar_V1>(json, s);
             return ret;
         }
     }
 
+    [JsonObject(MemberSerialization.OptIn)]
     public class ClogSidecar_V2
     {
-        [JsonPropertyName("Version")] public int Version { get; set; }
+        [JsonProperty] public int Version { get; set; }
 
-        [JsonPropertyName("EventBundlesV2")]
+        [JsonProperty]
         public SortedDictionary<string, CLogDecodedTraceLine> EventBundlesV2 { get; set; } = new SortedDictionary<string, CLogDecodedTraceLine>();
 
-        [JsonPropertyName("ConfigFile")] public CLogConfigurationFile ConfigFile { get; set; }
+        [JsonProperty] public CLogConfigurationFile ConfigFile { get; set; }
 
-        [JsonPropertyName("ModuleUniqueness")]
+        [JsonProperty]
         public CLogModuleUsageInformation_V2 ModuleUniqueness
         {
             get;
@@ -83,16 +87,15 @@ namespace clogutils
         {
             ModuleUniqueness.Sort();
 
+            JsonSerializerSettings s = new JsonSerializerSettings();
+            s.Formatting = Formatting.Indented;
             this.Version = 2;
-            JsonSerializerOptions s = new JsonSerializerOptions();
-            s.WriteIndented = true;
-            string me = JsonSerializer.Serialize(this, s);
+            string me = JsonConvert.SerializeObject(this, Formatting.Indented);
             return me;
         }
 
         public static ClogSidecar_V2 FromJson(string json)
         {
-            #if false
             try
             {
                 JsonSerializerSettings s = new JsonSerializerSettings();
@@ -118,9 +121,6 @@ namespace clogutils
             {
                 throw new CLogEnterReadOnlyModeException($"Invalid sidecar file version - it looks corrupted", CLogHandledException.ExceptionType.SidecarCorrupted, null, e);
             }
-            #else
-            return null;
-            #endif
         }
     }
 
