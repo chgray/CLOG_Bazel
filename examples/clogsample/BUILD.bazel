@@ -8,27 +8,28 @@ load(
 
 cc_binary(
     name = "clog_c_test",
-    srcs = ["simple.cpp", "x_simple.cpp.clog.h"]
+    includes = ["../../src/clogutils"],
+    srcs = ["simple.cpp", "simple.cpp.clog.h", "TEST_simple.cpp.clog.h.c", "//src/clogutils:clog.h"]
 )
 
-
+# Learn this 
+# https://bazel.build/build/style-guide
 
 
 # https://bazel.build/extending/macros
 genrule(
     name = "file",
-    srcs = ["simple.cpp", "clog_examples.clog_config", "clog.sidecar"],
-    outs = ["simple.cpp.clog.h"],
-    cmd = "./$(location //src/clog:clogP) --outputDirectory $(@D) -c clog_examples.clog_config -s ./clog.sidecar --scopePrefix TEST -p printf --inputFiles simple.cpp --verboseErrors",
+    srcs = ["simple.cpp","//examples/clog.sidecar"],
+    outs = ["y_simple.cpp.clog.h"],
+    cmd = "./$(location //src/clog:clogP) --outputDirectory $(@D) -c clog_examples.clog_config -s $(location //examples/clog.sidecar) --scopePrefix TEST -p printf --inputFiles simple.cpp --verboseErrors",
     tools = ["//src/clog:clogP"]
 )
 
-
 genrule(
   name = "tangle_file",
-  srcs = ["file.sh", "simple.cpp", "clog_examples.clog_config", "clog.sidecar"],
-  outs = ["x_simple.cpp.clog.h"],
-  cmd =  "./$(location file.sh) $(location //src/clog:clogP) $(@D)",
+  srcs = ["file.sh", "simple.cpp", "//examples:clog.sidecar", "//examples:clog_examples.clog_config", "//src/clogutils:clog.h"],
+  outs = ["simple.cpp.clog.h", "TEST_simple.cpp.clog.h.c"],
+  cmd =  "./$(location file.sh) $(location //src/clog:clogP) $(location //examples:clog_examples.clog_config) $(location //examples:clog.sidecar) $(location :simple.cpp) $(@D)",
   tools = ["//src/clog:clogP"]
 )
 

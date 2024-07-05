@@ -4,7 +4,10 @@ load(
     "csharp_library",
 )
 
-# import_dll(name="hi", dll="System.Reflection.Emit.dll", version="1.2.3")
+exports_files(
+    ["clog.h"],
+    visibility = ["//visibility:public"],
+)
 
 csharp_library(
     name = "clogutils",

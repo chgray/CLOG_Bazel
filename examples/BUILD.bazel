@@ -1,0 +1,4 @@
+exports_files(
+    ["clog.sidecar", "clog_examples.clog_config"],
+    visibility = ["//:__subpackages__"],
+)

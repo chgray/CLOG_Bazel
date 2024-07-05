@@ -11,7 +11,7 @@ Abstract:
 #include <stdio.h>
 #include "simple.cpp.clog.h"
 
-#if defined(CLOG_ETW)
+#if defined(CLOG_ETW) 
 //wevtutil.exe im .\clog_examples.man
 //wpr -start clog_examples.wprp -filemode -instancename clog_example
 //wpr -stop clog_example.etl -instancename clog_example
