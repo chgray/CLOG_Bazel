@@ -1,0 +1,48 @@
+load(
+    "@rules_dotnet//dotnet:defs.bzl",
+    "csharp_binary",
+    "csharp_library",
+    "publish_binary",
+    "csharp_nunit_test",
+)
+
+csharp_binary(
+    name = "clog_test",
+    # treat_warnings_as_errors = True,  # Optional: treat warnings as errors
+    srcs = [
+        "Program.cs",
+        "clog_test2.cs"
+    ],
+    target_frameworks = ["net8.0"],
+    deps = [
+        "@paket.clog_dependencies//newtonsoft.json",
+        "@paket.clog_dependencies//microsoft.codeanalysis.csharp",
+        "@paket.clog_dependencies//basic.reference.assemblies",
+        "@paket.clog_dependencies//microsoft.codeanalysis",
+        "@paket.clog_dependencies//commandlineparser",
+        "@paket.clog_dependencies//microsoft.codeanalysis.common"
+    ]
+)
+
+genrule(
+  name = "tangle_file",
+  srcs = ["file.sh"],
+  outs = ["clog_test2.cs"],
+  cmd =  "./$(location file.sh) $(@D)"
+)
+
+# https://bazel.build/extending/macros
+genrule(
+    name = "file",
+    outs = ["clog_test.cs"],
+    cmd = "$(location //src/clog:clogP)",
+    tools = ["//src/clog:clogP"],
+)
+
+
+sh_binary( 
+    name = "run",
+    srcs = ["launch.sh"],
+    data = [":clogP"],
+    args = ["$(location :clogP)"],
+)
