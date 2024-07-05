@@ -26,15 +26,8 @@ namespace clog
     {
         private static int Main(string[] args)
         {
-            string all = "";
-            foreach(var s in args)
-            {
-                all += s;
-            }
-            //ParserResult<CommandLineArguments> o = Parser.Default.ParseArguments<CommandLineArguments>(args);
-            System.IO.File.WriteAllText("clog_test.cs", "#error - good");
-            return 0;
-          /*  
+            ParserResult<CommandLineArguments> o = Parser.Default.ParseArguments<CommandLineArguments>(args);
+
             return o.MapResult(
                 options =>
                 {
@@ -335,7 +328,6 @@ namespace clog
                     Console.WriteLine("Bad Args : " + err);
                     return -1;
                 });
-            */
         }
     }
 }

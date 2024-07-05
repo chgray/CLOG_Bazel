@@ -11,7 +11,7 @@ csharp_binary(
     # treat_warnings_as_errors = True,  # Optional: treat warnings as errors
     srcs = [
         "Program.cs",
-        "clog_test2.cs"
+        "clog_test.cs"
     ],
     target_frameworks = ["net8.0"],
     deps = [
@@ -28,15 +28,17 @@ genrule(
   name = "tangle_file",
   srcs = ["file.sh"],
   outs = ["clog_test2.cs"],
-  cmd =  "./$(location file.sh) $(@D)"
+  cmd =  "./$(location file.sh) $(@D) $(location //src/clog:clogP)",
+  tools = ["//src/clog:clogP"]
 )
 
 # https://bazel.build/extending/macros
 genrule(
     name = "file",
+    srcs = ["Program.cs"],
     outs = ["clog_test.cs"],
-    cmd = "$(location //src/clog:clogP)",
-    tools = ["//src/clog:clogP"],
+    cmd = "./$(location //src/clog:clogP) $(@D)",
+    tools = ["//src/clog:clogP"]
 )
 
 
