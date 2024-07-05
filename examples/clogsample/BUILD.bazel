@@ -1,0 +1,40 @@
+load(
+    "@rules_dotnet//dotnet:defs.bzl",
+    "csharp_binary",
+    "csharp_library",
+    "publish_binary",
+    "csharp_nunit_test",
+)
+
+cc_binary(
+    name = "clog_c_test",
+    srcs = ["simple.cpp", "x_simple.cpp.clog.h"]
+)
+
+
+
+
+# https://bazel.build/extending/macros
+genrule(
+    name = "file",
+    srcs = ["simple.cpp", "clog_examples.clog_config", "clog.sidecar"],
+    outs = ["simple.cpp.clog.h"],
+    cmd = "./$(location //src/clog:clogP) --outputDirectory $(@D) -c clog_examples.clog_config -s ./clog.sidecar --scopePrefix TEST -p printf --inputFiles simple.cpp --verboseErrors",
+    tools = ["//src/clog:clogP"]
+)
+
+
+genrule(
+  name = "tangle_file",
+  srcs = ["file.sh", "simple.cpp", "clog_examples.clog_config", "clog.sidecar"],
+  outs = ["x_simple.cpp.clog.h"],
+  cmd =  "./$(location file.sh) $(location //src/clog:clogP) $(@D)",
+  tools = ["//src/clog:clogP"]
+)
+
+sh_binary( 
+    name = "run",
+    srcs = ["launch.sh"],
+    data = [":clogP"],
+    args = ["$(location :clogP)"],
+)

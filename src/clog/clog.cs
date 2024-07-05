@@ -319,7 +319,7 @@ namespace clog
                         {
                             CLogConsoleTrace.TraceLine(CLogConsoleTrace.TraceType.Err, e.ToString());
                         }
-
+                        return -2;
                     }
 
                     return 0;

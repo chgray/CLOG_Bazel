@@ -37,7 +37,7 @@ genrule(
     name = "file",
     srcs = ["Program.cs"],
     outs = ["clog_test.cs"],
-    cmd = "./$(location //src/clog:clogP) $(@D)",
+    cmd = "./$(location //src/clog:clogP) --outputDirectory $(@D) -c yack.config --inputFiles Program.cs",
     tools = ["//src/clog:clogP"]
 )
 
