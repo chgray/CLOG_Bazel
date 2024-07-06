@@ -33,8 +33,12 @@ TRACELOGGING_DEFINE_PROVIDER(
     (0x7ebe92eb, 0xb7ae, 0x4720, 0xb8, 0x42, 0xfa, 0x87, 0x98, 0x95, 0x8, 0x38));
 #endif
 
+void Init();
+
 int main(int argc, char* argv[])
 {
+   // Init();
+    
     #ifdef CLOG_ETW
         EventRegisterCLOG_SAMPLE_MANIFEST();
         TraceLoggingRegister(clog_hTrace);
@@ -48,7 +52,6 @@ int main(int argc, char* argv[])
     char *buffer = (char *)0xAABBCCDD00110011;
     TraceInstanceInfo(INSTANCE_TEST, buffer, "1. 1:%d 2:%s 3:%c 4:%u 5:%hd 6:%lld - you should see 1 2 3 4 5 6", 1, "2", '3', 4, 5, (long long int)6);
 
-    TraceInfo(BOOGERS, "hi hi");
     TraceInfo(DATA_STRING, "2. I  string %s=hlo", "hello");
     TraceInfo(DATABYTEARRAY, "3. This is a byte array with a custom decoder = %!BYTEARRAY!", CLOG_BYTEARRAY(5, (const unsigned char *)"hello"));
 

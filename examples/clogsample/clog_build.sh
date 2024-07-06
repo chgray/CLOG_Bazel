@@ -7,13 +7,15 @@ config=$2
 sidecar=$3
 file=$4
 outputDir=$5
+outputSideCar=$6
 
 echo "------------"
-echo "      Tool : $tool"
-echo "    Config : $config"
-echo "   SideCar : $sidecar"
-echo "      File : $file"
-echo "Output Dir : $5"
+echo "      Tool    : $tool"
+echo "    Config    : $config"
+echo "   SideCar    : $sidecar"
+echo "      File    : $file"
+echo "Output Dir    : $outputDir"
+echo "Output SideCar: $outputSideCar"
 echo "-=-=-=-"
 ls 
 echo "======="
@@ -21,7 +23,7 @@ echo "======="
 echo "=-=-=-=-="
 
 export CLOG_DEVELOPMENT_MODE=1
-$1 --outputDirectory $outputDir -c $config -s $sidecar --outputSideCar $5/clog.sidecar.new --scopePrefix TEST -p printf --inputFiles $file --verboseErrors
+$1 --outputDirectory $outputDir -c $config -s $sidecar --outputSideCar $outputDir/$outputSideCar --scopePrefix TEST -p printf --inputFiles $file --verboseErrors
 
 echo "*+*+*+*+*+*+*+*"
 ls $5
