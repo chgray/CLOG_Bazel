@@ -37,7 +37,7 @@ void Init();
 
 int main(int argc, char* argv[])
 {
-   // Init();
+    Init();
     
     #ifdef CLOG_ETW
         EventRegisterCLOG_SAMPLE_MANIFEST();
