@@ -234,8 +234,10 @@ namespace clogutils
                 return;
             }
 
-            string s = ToJson();
+            string s = ToJson(); 
             File.WriteAllText(fileName, s);
+            
+            CLogConsoleTrace.TraceLine(TraceType.Err, $"*=*=*= Wrote New SideCar : {fileName}");
         }
 
         public void FinishedProcessing(CLogOutputInfo outputInfo, StringBuilder header, StringBuilder sourceFile)

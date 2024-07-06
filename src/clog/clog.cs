@@ -44,7 +44,6 @@ namespace clog
                             return -1;
                         }
 
-
                         CLogConfigurationFile configFile = CLogConfigurationFile.FromFile(options.ConfigurationFile);
                         configFile.ProfileName = options.ConfigurationProfile;
 
@@ -99,6 +98,11 @@ namespace clog
                             CLogConsoleTrace.TraceLine(CLogConsoleTrace.TraceType.Std, "Config upgrade complete");
                             return 0;
                         }
+                        
+                        if (!options.ReadOnly && String.IsNullOrEmpty(options.OutputSidecarFile))
+                        {
+                            options.OutputSidecarFile = options.SidecarFile;
+                        }
 
                         CLogSidecar sidecar;
                         if (!Directory.Exists(Path.GetDirectoryName(options.SidecarFile)))
@@ -121,7 +125,7 @@ namespace clog
                         if (options.RefreshCustomTypeProcessor)
                         {
                             configFile.ForceDecoderCompile();
-                            sidecar.Save(options.SidecarFile);
+                            sidecar.Save(options.OutputSidecarFile);
                             return 0;
                         }
 
@@ -262,7 +266,7 @@ namespace clog
                                     throw new CLogEnterReadOnlyModeException("WontWriteWhileInReadonlyMode:SideCar", CLogHandledException.ExceptionType.WontWriteInReadOnlyMode, null);
                                 }
                                 configFile.ForceDecoderCompile();
-                                sidecar.Save(options.SidecarFile);
+                                sidecar.Save(options.OutputSidecarFile);
                             }
 
                             if (configFile.AreWeDirty() || configFile.AreWeInMarkPhase())

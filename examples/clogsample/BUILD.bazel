@@ -5,6 +5,7 @@ load(
     "publish_binary",
     "csharp_nunit_test",
 )
+load("//examples/clogsample:clog.bzl", "clog")
 
 cc_binary(
     name = "clog_c_test",
@@ -36,8 +37,8 @@ cc_library(
 
 genrule(
   name = "tangle_file",
-  srcs = ["file.sh", "simple.cpp", "//examples:clog.sidecar", "//examples:clog_examples.clog_config", "//src/clogutils:clog.h"],
-  outs = ["simple.cpp.clog.h", "TEST_simple.cpp.clog.h.c"],
-  cmd =  "./$(location file.sh) $(location //src/clog:clogP) $(location //examples:clog_examples.clog_config) $(location //examples:clog.sidecar) $(location :simple.cpp) $(@D)",
+  srcs = ["clog_build.sh", "simple.cpp", "//examples:clog.sidecar", "//examples:clog_examples.clog_config", "//src/clogutils:clog.h"],
+  outs = ["simple.cpp.clog.h", "TEST_simple.cpp.clog.h.c", "clog.sidecar.new"],
+  cmd =  "./$(location clog_build.sh) $(location //src/clog:clogP) $(location //examples:clog_examples.clog_config) $(location //examples:clog.sidecar) $(location :simple.cpp) $(@D)",
   tools = ["//src/clog:clogP"]
 )

@@ -68,6 +68,13 @@ namespace clog
             get;
             set;
         }
+        
+        [Option("outputSideCar", Required = false, HelpText = "Full path to writable sidecar; used in hermetic builds, like Bazel")]
+        public string OutputSidecarFile
+        {
+            get;
+            set;
+        }
 
         [Option("overwriteHashCollisions", SetName = "build", Required = false, Default = false, HelpText = "CAUTION: overwrite trace signatures should a collsion occur.  please read documentation before using this (you may also set CLOG_OVERWRITE_COLLISIONS in your environemnt)")]
         public bool OverwriteHashCollisions
