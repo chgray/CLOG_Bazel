@@ -22,8 +22,8 @@ cc_binary(
 
 # Learn this 
 # https://bazel.build/build/style-guide
-clog(name="thing1", src="simple.cpp", sidecarOutput="hi.car")
-clog(name="thing2", src="simple_helper.cpp", sidecarOutput="hi2.car")
+clog(name="thing1", src="simple.cpp")
+clog(name="thing2", src="simple_helper.cpp")
 
 cc_library(
     name = "thing",
@@ -31,12 +31,3 @@ cc_library(
     includes = ["."],
   )
 
-
-# https://bazel.build/extending/macros
-# genrule(
-#   name = "tangle_file",
-#   srcs = ["clog_build.sh", "simple.cpp", "//examples:clog.sidecar", "//examples:clog_examples.clog_config", "//src/clogutils:clog.h"],
-#   outs = ["simple.cpp.clog.h", "TEST_simple.cpp.clog.h.c", "clog.sidecar.new"],
-#   cmd =  "./$(location clog_build.sh) $(location //src/clog:clogP) $(location //examples:clog_examples.clog_config) $(location //examples:clog.sidecar) $(location :simple.cpp) $(@D)",
-#   tools = ["//src/clog:clogP"]
-# )
