@@ -12,6 +12,7 @@
 
   <PropertyGroup>
     <UseAppHost>True</UseAppHost>
+    <StartupObject>clog.clog</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
