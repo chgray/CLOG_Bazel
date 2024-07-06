@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
     char *buffer = (char *)0xAABBCCDD00110011;
     TraceInstanceInfo(INSTANCE_TEST, buffer, "1. 1:%d 2:%s 3:%c 4:%u 5:%hd 6:%lld - you should see 1 2 3 4 5 6", 1, "2", '3', 4, 5, (long long int)6);
 
-    TraceInfo(DATA_STRING, "2. I  string %s=hlo", "hello");
+    TraceInfo(DATA_STRING, "2. I   string %s=hlo", "hello");
     TraceInfo(DATABYTEARRAY, "3. This is a byte array with a custom decoder = %!BYTEARRAY!", CLOG_BYTEARRAY(5, (const unsigned char *)"hello"));
 
     TraceInfo(DATACHAR, "4. This is a char: %c; it should equal a", 'a');

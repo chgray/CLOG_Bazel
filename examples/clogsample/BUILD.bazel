@@ -11,23 +11,11 @@ cc_binary(
     name = "clog_c_test",
     includes = ["../../src/clogutils"],
     srcs = ["simple.cpp", 
-            "simple_helper.cpp", 
-            "simple.cpp.clog.h", 
-            #"TEST_simple.cpp.clog.h.c",             
-            "simple_helper.cpp.clog.h",
-            #"TEST_simple_helper.cpp.clog.h.c",            
+            "simple_helper.cpp",            
             "//src/clogutils:clog.h"],
-    deps = [":thing"]
+    deps = [":simple", 
+            ":simple_helper"]
 )
 
-# Learn this 
-# https://bazel.build/build/style-guide
-clog(name="thing1", src="simple.cpp")
-clog(name="thing2", src="simple_helper.cpp")
-
-cc_library(
-    name = "thing",
-    hdrs = ["simple.cpp.clog.h", "simple_helper.cpp.clog.h"],
-    includes = ["."],
-  )
-
+clog(name="simple", src="simple.cpp")
+clog(name="simple_helper", src="simple_helper.cpp")
