@@ -24,4 +24,11 @@ ls $5
 echo "***************"
 find $5 | grep clog.h
 
-exit 1
+export
+
+echo "-=-=-=-=-="
+echo 1 > bazel-out/boogers
+
+ls bazel-out
+
+exit 0
