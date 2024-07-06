@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>library</OutputType>
@@ -12,10 +12,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="..\..\defaults\defaults.clog.cs" Link="defaults.clog.cs" />
-    <EmbeddedResource Include="..\..\defaults\clog.h" Link="clog.h" />
-    <EmbeddedResource Include="..\..\defaults\defaults.clog_config" Link="defaults.clog_config" />
-    <EmbeddedResource Include="..\..\defaults\CLog.cmake" Link="CLog.cmake" />
+    <EmbeddedResource Include="defaults.clog.cs" Link="defaults.clog.cs" />
+    <EmbeddedResource Include="clog.h" Link="clog.h" />
+    <EmbeddedResource Include="defaults.clog_config" Link="defaults.clog_config" />
   </ItemGroup>
 
   <ItemGroup>
