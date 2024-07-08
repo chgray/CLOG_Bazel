@@ -21,3 +21,40 @@ def clog(name, src, **kwargs):
     includes = ["."],
   )
 
+def _hello_world_impl(ctx):
+    out = ctx.actions.declare_file(ctx.label.name + ".cc")
+    myout = ctx.actions.declare_file(".temp")
+    files=[]
+     
+    for pack in ctx.attr.template:
+       print("**** analyzingx", pack)
+        
+       # files.append(pack)
+       #myinput = pack #ctx.actions.declare_file(pack)
+      #  myout = ctx.actions.declare_file(".temp")
+      #  myinput = ctx.actions.declare_file(".in_temp")
+      #  print(myout.path)
+      #  ctx.actions.write(
+      #       output = myout,
+      #       content = "Hello\n",
+      #   )
+    print(files)
+    
+    ctx.actions.run_shell(
+      inputs=files,
+      outputs=[myout],
+      command="ls -l"
+      )
+      
+    return [DefaultInfo(files = depset([out]))]
+
+hello_world = rule(
+    implementation = _hello_world_impl,
+    attrs = {
+        "username": attr.string(default = "unknown person"),
+        "template": attr.label_list(
+            allow_files = [".cpp"],
+            mandatory = True,
+        ),
+    },
+)

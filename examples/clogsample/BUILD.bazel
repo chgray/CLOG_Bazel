@@ -6,16 +6,42 @@ load(
     "csharp_nunit_test",
 )
 load("//examples/clogsample:clog.bzl", "clog")
+load("//examples/clogsample:clog.bzl", "hello_world")
+
 
 cc_binary(
     name = "clog_c_test",
     includes = ["../../src/clogutils"],
-    srcs = ["simple.cpp", 
-            "simple_helper.cpp",            
+    srcs = [
+            "simple.cpp", 
+            "simple_helper.cpp",
             "//src/clogutils:clog.h"],
     deps = [":simple", 
             ":simple_helper"]
 )
 
+
+
+hello_world(
+    name = "hello",
+    username = "Alice",
+    #template = "simple.cpp"
+    template = ["simple.cpp", "simple_helper.cpp"],
+)
+
+
+
 clog(name="simple", src="simple.cpp")
 clog(name="simple_helper", src="simple_helper.cpp")
+
+filegroup(name = "myOutputs",
+    srcs = [":simple", ":simple_helper"],
+)
+
+genrule(
+    name = "sidecar",
+    srcs = [":hello", "debug.sh"],
+    outs = ["fattie.sidecar"],
+    cmd =  "./$(location debug.sh) $(locations :hello)",
+    tools = ["//src/clog:clogP"]
+  )

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "....calling CLOG"
+echo "....calling CLOG" 
 
 tool=$1
 config=$2

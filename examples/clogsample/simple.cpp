@@ -35,7 +35,8 @@ TRACELOGGING_DEFINE_PROVIDER(
 
 void Init();
 
-int main(int argc, char* argv[])
+
+int m    kain(int argc, char* argv[])
 {
     Init();
     
