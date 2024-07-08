@@ -23,6 +23,7 @@ def clog(name, src, **kwargs):
 
 def _hello_world_impl(ctx):
     out = ctx.actions.declare_file(ctx.label.name + ".cc")
+    out2 = ctx.actions.declare_file(ctx.label.name + ".cc2")
     myout = ctx.actions.declare_file(".temp")
     files=[]
      
@@ -46,7 +47,7 @@ def _hello_world_impl(ctx):
       command="ls -l"
       )
       
-    return [DefaultInfo(files = depset([out]))]
+    return [DefaultInfo(files = depset([out, out2]))]
 
 hello_world = rule(
     implementation = _hello_world_impl,
