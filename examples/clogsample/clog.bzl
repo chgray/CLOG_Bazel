@@ -21,14 +21,22 @@ def clog(name, src, **kwargs):
     includes = ["."],
   )
 
-def _hello_world_impl(ctx):
-    out = ctx.actions.declare_file(ctx.label.name + ".cc")
-    out2 = ctx.actions.declare_file(ctx.label.name + ".cc2")
-    myout = ctx.actions.declare_file(".temp")
+def _hello_world_impl(ctx):   
     files=[]
+    #files.append(out)
+    #files.append(out2)
+     
+    #ctx.actions.write(out, content = "")
+    #ctx.actions.write(out2, content = "")
      
     for pack in ctx.attr.template:
-       print("**** analyzingx", pack)
+       #print("**** analyzingx", pack)
+       for file in pack.files.to_list():
+          header = ctx.actions.declare_file(file.path + ".clog.h")
+          source = ctx.actions.declare_file("TEST_" + file.path + ".clog.h.c")
+          print("Adding ", file.path + ".clog.h")
+          files.append(header)
+        #ctx.actions.write(file, content = "")
         
        # files.append(pack)
        #myinput = pack #ctx.actions.declare_file(pack)
@@ -39,15 +47,15 @@ def _hello_world_impl(ctx):
       #       output = myout,
       #       content = "Hello\n",
       #   )
-    print(files)
+    #print(files)
     
-    ctx.actions.run_shell(
-      inputs=files,
-      outputs=[myout],
-      command="ls -l"
-      )
+    # ctx.actions.run_shell(
+    #   inputs=files,
+    #   outputs=[myout],
+    #   command="ls -l"
+    #   )
       
-    return [DefaultInfo(files = depset([out, out2]))]
+    return [DefaultInfo(files = depset(files))]
 
 hello_world = rule(
     implementation = _hello_world_impl,
