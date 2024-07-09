@@ -33,8 +33,8 @@ def _hello_world_impl(ctx):
        #print("**** analyzingx", pack)
        for file in pack.files.to_list():
           header = ctx.actions.declare_file(file.path + ".clog.h")
-          source = ctx.actions.declare_file("TEST_" + file.path + ".clog.h.c")
-          print("Adding ", file.path + ".clog.h")
+          #source = ctx.actions.declare_file("TEST_" + file.path + ".clog.h.c")
+          print("Adding ", header.path)
           files.append(header)
         #ctx.actions.write(file, content = "")
         

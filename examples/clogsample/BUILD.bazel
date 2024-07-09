@@ -15,9 +15,9 @@ cc_binary(
     srcs = [
             "simple.cpp", 
             "simple_helper.cpp",
+           # ":hello",
             "//src/clogutils:clog.h"],
-    deps = [":simple", 
-            ":simple_helper"]
+    deps = [":simple", ":simple_helper"]
 )
 
 
