@@ -25,7 +25,7 @@ def _hello_world_impl(ctx):
     files=[]
     #files.append(out)
     #files.append(out2)
-     
+    print("HELLO!")
     #ctx.actions.write(out, content = "")
     #ctx.actions.write(out2, content = "")
      
@@ -33,9 +33,21 @@ def _hello_world_impl(ctx):
        #print("**** analyzingx", pack)
        for file in pack.files.to_list():
           header = ctx.actions.declare_file(file.path + ".clog.h")
+          print("-=-=-=-=-=-=")
+         
+          
+          ctx.actions.run_shell(
+            outputs = [header],
+            inputs = [file],
+            arguments = ["hi"],
+            command = "touch booger.file x" ,
+          )
           #source = ctx.actions.declare_file("TEST_" + file.path + ".clog.h.c")
-          print("Adding ", header.path)
-          files.append(header)
+          #print("Adding ", header.path)
+          #files.append(header)
+          files.append(file)
+          #files.append(header)
+          #clog(name="hi", src=file)
         #ctx.actions.write(file, content = "")
         
        # files.append(pack)

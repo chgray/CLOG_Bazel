@@ -11,6 +11,7 @@ Abstract:
 #include <stdio.h>
 #include "simple.cpp.clog.h"
 
+
 #if defined(CLOG_ETW) 
 //wevtutil.exe im .\clog_examples.man
 //wpr -start clog_examples.wprp -filemode -instancename clog_example
@@ -21,7 +22,6 @@ Abstract:
 #include <evntcons.h>
 #include "clog_examples.h"
 #include <TraceLoggingProvider.h>  // The native TraceLogging API
-
 
 // Forward-declare the clog_hTrace variable that you will use for tracing in this component
 TRACELOGGING_DECLARE_PROVIDER( clog_hTrace );
